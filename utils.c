@@ -75,8 +75,8 @@ adj_list create_adj_list(int n) {
 }
 
 void print_adj_list(const adj_list *al) {
-    for (int i=1; i<=al->size; i++) {
-        printf("List for vertex %d:", i);
+    for (int i=0; i<al->size; i++) {
+        printf("List for vertex %d:", i+1);
         print_list(&al->lists[i]);
     }
 }
@@ -107,6 +107,7 @@ adj_list readGraph(const char *filename) {
     fclose(file);
     return al;
 }
+
 int isaMarkovGraph(adj_list *g) {
     int isaMarkov = 1;
     for (int i = 0; i < g->size; i++) {
@@ -119,33 +120,12 @@ int isaMarkovGraph(adj_list *g) {
         if (sum > 1.00 || sum < 0.99) {
             isaMarkov = 0;
             printf("The graph is not a Markov graph\n");
-            printf("the sum of the probabilities of vertex %d is %f\n",i+1,sum);
-            return 0;
+            printf("The sum of the probabilities of vertex %d is %f\n\n",i+1,sum);
         }
     }
     if (isaMarkov) {
-        printf("The graph is a Markov graph\n");
+        printf("The graph is a Markov graph\n\n");
         return 1;
     }
     return 0;
-}
-
-
-void free_adj_list(adj_list *g)
-{
-    if (!g || !g->lists) return;
-
-    for (int i = 0; i < g->size; i++) {
-        cell *cur = g->lists[i].head;
-        while (cur) {
-            cell *next = cur->next;
-            free(cur);
-            cur = next;
-        }
-        g->lists[i].head = NULL;
-    }
-
-    free(g->lists);
-    g->lists = NULL;
-    g->size = 0;
 }

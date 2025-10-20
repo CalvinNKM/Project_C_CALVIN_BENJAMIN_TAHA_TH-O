@@ -27,36 +27,3 @@ static char *getID(int i)
 
     return buffer;
 }
-cell *create_cell(int to, float prob)
-{
-    cell *c = (cell*)malloc(sizeof(cell));
-    if (!c) {
-        return NULL;
-    }
-    c->to = to;
-    c->prob = prob;
-    c->next = NULL;
-    return c;
-}
-list createList(void) {
-    list L;
-    L.head = NULL;
-    return L;
-}
-
-void addCellToList(list *L, int dest, float prob) {
-    cell *newCell = create_cell(dest, prob);
-    newCell->next = L->head;
-    L->head = newCell;
-}
-
-void print_list(const list *l)
-{
-    printf("[head @]");
-    const cell *cur = l->head;
-    while (cur) {
-        printf(" -> (%d, %.2f)", cur->to, cur->prob);
-        cur = cur->next;
-    }
-    printf("\n");
-}

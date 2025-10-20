@@ -19,7 +19,6 @@ typedef struct {
 } adj_list;
 
 cell *create_cell(int to, float prob);
-list  create_list(void);
 
 adj_list create_adj_list(int n);
 void free_adj_list(adj_list *g);
@@ -40,7 +39,5 @@ int export_mermaid(const adj_list *g, const char *filename);
 list createList(void);
 
 void addCellToList(list *L, int dest, float prob);
-
-cell *createCell(int dest, float prob); //pas sure cest bien ca
 
 #endif

@@ -69,7 +69,7 @@ adj_list create_adj_list(int n) {
     my_adj_list.size = n;
     my_adj_list.lists = (list*) malloc(n*sizeof(list));
     for (int i = 0; i < n; i++) {
-        my_adj_list.lists[i] = create_list();
+        my_adj_list.lists[i] = createList();
     }
     return my_adj_list;
 }

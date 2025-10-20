@@ -107,3 +107,24 @@ adj_list readGraph(const char *filename) {
     fclose(file);
     return al;
 }
+
+void isaMarkovGraph(adj_list *g) {
+    int isaMarkov = 1;
+    for (int i = 0; i < g->size; i++) {
+        int sum = 0;
+        cell *cur = g->lists[i].head;
+        while (cur != NULL) {
+            sum += cur->prob;
+            cur = cur->next;
+        }
+        if (sum > 1 || sum < 0.99) {
+            isaMarkov = 0;
+            printf("The graph is not a Markov graph\n");
+            printf("the sum of the probabilities of vertex %d is %d\n",i+1,cur->prob);
+            return;
+        }
+    }
+    if (isaMarkov) {
+        printf("The graph is a Markov graph\n");
+    }
+}

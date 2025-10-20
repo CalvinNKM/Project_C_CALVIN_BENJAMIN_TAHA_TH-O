@@ -30,7 +30,7 @@ void print_list(const list *l);
 void print_adj_list(const adj_list *al);
 
 adj_list readGraph(const char *filename);
-
+void isaMarkovGraph(adj_list *g);
 
 int check_markov(const adj_list *g, FILE *out);
 

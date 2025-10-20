@@ -7,34 +7,33 @@ typedef struct cell {
     int to;
     float prob;
     struct cell *next;
-} Cell;
+} cell;
 
 typedef struct {
-    Cell *head;
-} List;
+    cell *head;
+} list;
 
 typedef struct {
     int size;
-    List *lists;
-} AdjList;
+    list *lists;
+} adj_list;
 
-Cell *create_cell(int to, float prob);
-void  free_list(List *l);
-List  create_list(void);
+cell *create_cell(int to, float prob);
+list  create_list(void);
 
-AdjList create_adjlist(int n);
-void    free_adjlist(AdjList *g);
-
-
-void add_edge(AdjList *g, int from, int to, float prob);
-
-void print_list(FILE *out, const List *l);
-void print_adjlist(FILE *out, const AdjList *g);
-
-AdjList readGraph(const char *filename);
+adj_list create_adj_list(int n);
+void    free_adj_list(adj_list *g);
 
 
-int check_markov(const AdjList *g, FILE *out);
+void add_edge(adj_list *g, int from, int to, float prob);
 
-int export_mermaid(const AdjList *g, const char *filename);
+void print_list(FILE *out, const list *l);
+void print_adj_list(FILE *out, const adj_list *g);
+
+adj_list readGraph(const char *filename);
+
+
+int check_markov(const adj_list *g, FILE *out);
+
+int export_mermaid(const adj_list *g, const char *filename);
 #endif

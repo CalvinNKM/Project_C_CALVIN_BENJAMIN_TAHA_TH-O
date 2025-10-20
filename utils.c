@@ -108,7 +108,7 @@ adj_list readGraph(const char *filename) {
     return al;
 }
 
-void isaMarkovGraph(adj_list *g) {
+int isaMarkovGraph(adj_list *g) {
     int isaMarkov = 1;
     for (int i = 0; i < g->size; i++) {
         float sum = 0;
@@ -126,5 +126,7 @@ void isaMarkovGraph(adj_list *g) {
     }
     if (isaMarkov) {
         printf("The graph is a Markov graph\n");
+        return 1;
     }
+    return 0;
 }

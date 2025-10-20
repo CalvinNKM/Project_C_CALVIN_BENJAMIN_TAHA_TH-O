@@ -19,25 +19,18 @@ typedef struct {
 } adj_list;
 
 cell *create_cell(int to, float prob);
-
 adj_list create_adj_list(int n);
-void free_adj_list(adj_list *g);
 
-
-void add_edge(adj_list *g, int from, int to, float prob);
+void addCellToList(list *L, int dest, float prob);
+list createList(void);
 
 void print_list(const list *l);
 void print_adj_list(const adj_list *al);
 
 adj_list readGraph(const char *filename);
-void isaMarkovGraph(adj_list *g);
+int isaMarkovGraph(adj_list *g);
 
-int check_markov(const adj_list *g, FILE *out);
-
-int export_mermaid(const adj_list *g, const char *filename);
-
-list createList(void);
-
-void addCellToList(list *L, int dest, float prob);
+void exportMermaid(const adj_list *g, const char *filename);
+void free_adj_list(adj_list *g);
 
 #endif

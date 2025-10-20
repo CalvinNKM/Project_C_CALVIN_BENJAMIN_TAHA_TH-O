@@ -27,3 +27,16 @@ static char *getID(int i)
 
     return buffer;
 }
+
+list createList(void) {
+    list L;
+    L.head = NULL;
+    return L;
+}
+
+void addCellToList(list *L, int dest, float prob) {
+    cell *newCell = create_cell(dest, prob);
+    newCell->next = L->head;
+    L->head = newCell;
+}
+

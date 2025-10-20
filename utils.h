@@ -36,4 +36,11 @@ adj_list readGraph(const char *filename);
 int check_markov(const adj_list *g, FILE *out);
 
 int export_mermaid(const adj_list *g, const char *filename);
+
+list createList(void);
+
+void addCellToList(list *L, int dest, float prob);
+
+cell *createCell(int dest, float prob); //pas sure cest bien ca
+
 #endif

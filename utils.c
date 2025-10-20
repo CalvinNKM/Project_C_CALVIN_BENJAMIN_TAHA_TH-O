@@ -10,7 +10,6 @@ static char *getID(int i)
     static char buffer[10];
     char temp[10];
     int index = 0;
-
     i--; // Adjust to 0-based index
     while (i >= 0)
     {
@@ -38,5 +37,15 @@ void addCellToList(list *L, int dest, float prob) {
     cell *newCell = create_cell(dest, prob);
     newCell->next = L->head;
     L->head = newCell;
+}
+
+adj_list create_adj_list(int n) {
+    adj_list my_adj_list;// = (adj_list*) malloc(sizeof(adj_list));
+    my_adj_list.size = n;
+    my_adj_list.lists = (list*) malloc(n*sizeof(list));
+    for (int i = 0; i < n; i++) {
+        my_adj_list.lists[i] = create_list();
+    }
+    return my_adj_list;
 }
 

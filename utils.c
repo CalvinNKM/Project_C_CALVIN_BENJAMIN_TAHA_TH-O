@@ -121,7 +121,6 @@ int isaMarkovGraph(adj_list *g) {
             isaMarkov = 0;
             printf("The graph is not a Markov graph\n");
             printf("The sum of the probabilities of vertex %d is %f\n\n",i+1,sum);
-            return;
         }
     }
     if (isaMarkov) {

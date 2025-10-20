@@ -74,3 +74,10 @@ adj_list create_adj_list(int n) {
     return my_adj_list;
 }
 
+void print_adj_list(const adj_list *al) {
+    for (int i=0; i<al->size; i++) {
+        printf("List for vertex %d:", i);
+        print_list(&al->lists[i]);
+        printf("\n");
+    }
+}

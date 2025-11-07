@@ -112,7 +112,7 @@ int isaMarkovGraph(adj_list *g) {
     int isaMarkov = 1;
     for (int i = 0; i < g->size; i++) {
         float sum = 0;
-        cell *cur = g->lists[i].head;  // ✅ correct index
+        cell *cur = g->lists[i].head;
         while (cur != NULL) {
             sum += cur->prob;
             cur = cur->next;

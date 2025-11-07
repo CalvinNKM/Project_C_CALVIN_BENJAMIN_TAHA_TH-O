@@ -160,14 +160,19 @@ void exportMermaid(const adj_list *g, const char *filename) {
     fprintf(file, "\n");
 
     for (int i = 0; i < g->size; i++) {
+        char fromID[10];
+        strcpy(fromID, getID(i + 1));
+
         cell *cur = g->lists[i].head;
         while (cur) {
-            fprintf(file, "%s -->|%.2f|%s\n",
-                    getID(i + 1), cur->prob, getID(cur->to));
+            char toID[10];
+            strcpy(toID, getID(cur->to));
+
+            fprintf(file, "%s -->|%.2f|%s\n", fromID, cur->prob, toID);
             cur = cur->next;
         }
     }
 
     fclose(file);
-    printf("Mermaid file '%s' generated \n", filename);
+    printf("Mermaid file '%s' generated successfully.\n", filename);
 }

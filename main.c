@@ -9,7 +9,7 @@
 int main(void)
 {
 
-    const char *inputFile = "/Users/calvinnkm/Downloads/NewProject_C/data/exemple1.txt";
+    const char *inputFile = "../data/exemple_valid_step3.txt";
 
 
     adj_list g = readGraph(inputFile);
@@ -20,14 +20,10 @@ int main(void)
 
     printf("--- Adjacence Lists ---\n");
     print_adj_list(&g);
-    printf("\n--- Verification of the graph---\n");
-    if (isaMarkovGraph(&g))
-        printf("The graph is a Markov graph.\n");
-    else
-        printf("The graph is not a Markov graph.\n");
+    isaMarkovGraph(&g);
 
     printf("\n--- Generation of the file Mermaid ---\n");
-    exportMermaid(&g, "example_valid_step3.txt");
+    exportMermaid(&g, "mermaid_output.txt");
 
 
     free_adj_list(&g);

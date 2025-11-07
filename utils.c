@@ -117,7 +117,7 @@ int isaMarkovGraph(adj_list *g) {
             sum += cur->prob;
             cur = cur->next;
         }
-        if (sum > 1.00 || sum < 0.99) {
+        if (sum > 1.01 || sum < 0.99) {
             printf("The graph is not a Markov graph\n");
             printf("The sum of the probabilities of vertex %d is %f\n\n", i+1, sum);
             isaMarkov = 0;

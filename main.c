@@ -27,7 +27,7 @@ int main(void)
         printf("The graph is not a Markov graph.\n");
 
     printf("\n--- Generation of the file Mermaid ---\n");
-    exportMermaid(&g, "mermaid_output.mmd");
+    exportMermaid(&g, "exemple3.txt");
 
 
     free_adj_list(&g);

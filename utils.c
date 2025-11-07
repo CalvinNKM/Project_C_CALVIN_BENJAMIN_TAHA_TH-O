@@ -102,7 +102,7 @@ adj_list readGraph(const char *filename) {
     {
         // we obtain, for each line of the file, the values
         // start, end and proba
-        addCellToList(&al.lists[start], end, proba);
+        addCellToList(&al.lists[start - 1], end, proba);
     }
     fclose(file);
     return al;
@@ -112,15 +112,15 @@ int isaMarkovGraph(adj_list *g) {
     int isaMarkov = 1;
     for (int i = 0; i < g->size; i++) {
         float sum = 0;
-        cell *cur = g->lists[i+1].head;
+        cell *cur = g->lists[i].head;  // ✅ correct index
         while (cur != NULL) {
             sum += cur->prob;
             cur = cur->next;
         }
         if (sum > 1.00 || sum < 0.99) {
-            isaMarkov = 0;
             printf("The graph is not a Markov graph\n");
-            printf("The sum of the probabilities of vertex %d is %f\n\n",i+1,sum);
+            printf("The sum of the probabilities of vertex %d is %f\n\n", i+1, sum);
+            isaMarkov = 0;
         }
     }
     if (isaMarkov) {
@@ -128,4 +128,46 @@ int isaMarkovGraph(adj_list *g) {
         return 1;
     }
     return 0;
+}
+
+void free_adj_list(adj_list *g) {
+    for (int i = 0; i < g->size; i++) {
+        cell *cur = g->lists[i].head;
+        while (cur) {
+            cell *next = cur->next;
+            free(cur);
+            cur = next;
+        }
+    }
+    free(g->lists);
+    g->lists = NULL;
+    g->size = 0;
+}
+void exportMermaid(const adj_list *g, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (!file) {
+        perror("Could not open file for writing");
+        return;
+    }
+
+    fprintf(file, "---\n");
+    fprintf(file, "config:\n   layout: elk\n   theme: neo\n   look: neo\n---\n\n");
+    fprintf(file, "flowchart LR\n");
+
+    for (int i = 0; i < g->size; i++) {
+        fprintf(file, "%s((%d))\n", getID(i + 1), i + 1);
+    }
+    fprintf(file, "\n");
+
+    for (int i = 0; i < g->size; i++) {
+        cell *cur = g->lists[i].head;
+        while (cur) {
+            fprintf(file, "%s -->|%.2f|%s\n",
+                    getID(i + 1), cur->prob, getID(cur->to));
+            cur = cur->next;
+        }
+    }
+
+    fclose(file);
+    printf("Mermaid file '%s' generated \n", filename);
 }

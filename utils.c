@@ -41,10 +41,10 @@ cell *create_cell(int to, float prob)
 }
 
 
-void print_list(const list *l)
+void print_list(list l)
 {
     printf("[head @]");
-    const cell *cur = l->head;
+    const cell *cur = l.head;
     while (cur) {
         printf(" -> (%d, %.2f)", cur->to, cur->prob);
         cur = cur->next;
@@ -77,7 +77,7 @@ adj_list create_adj_list(int n) {
 void print_adj_list(const adj_list *al) {
     for (int i=0; i<al->size; i++) {
         printf("List for vertex %d:", i+1);
-        print_list(&al->lists[i]);
+        print_list(al->lists[i]);
     }
 }
 
@@ -129,7 +129,15 @@ int isaMarkovGraph(adj_list *g) {
     }
     return 0;
 }
+#include "stack.h"
 
+t_stack create_stack(void) {
+    t_stack s;
+    s.data = NULL;
+    s.size = 0;
+    s.capacity = 0;
+    return s;
+}
 void free_adj_list(adj_list *g) {
     for (int i = 0; i < g->size; i++) {
         cell *cur = g->lists[i].head;

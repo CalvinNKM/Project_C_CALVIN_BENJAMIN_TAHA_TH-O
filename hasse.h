@@ -1,6 +1,6 @@
 #ifndef __HASSE_H__
 #define __HASSE_H__
-
+#include "utils.h"
 typedef struct {
     int identifier;
     int number;
@@ -35,6 +35,9 @@ typedef struct {
     int size;
     int capacity;
 } t_stack;
+
+t_tarjan_vertex *create_tarjan(int identifier, int prob);
+t_tarjan_vertex* createArrayTarjan(adj_list g);
 
 t_stack create_stack(void);
 

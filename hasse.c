@@ -115,12 +115,12 @@ void parcours(t_tarjan_vertex* v, int * number, t_stack * p, adj_list g, t_tarja
         c.name = "C";
         c.list.size = 0;
         c.list.head;
-        t_tarjan_vertex w;
+        t_tarjan_vertex* w;
         do {
             w = pop_stack(p);
-            w.processing = 0;
+            w->processing = 0;
             //add w to C
-        } while (w.identifier != v->identifier);
+        } while (w->identifier != v->identifier);
         //add c to partition
 
     }

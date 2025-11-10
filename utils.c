@@ -129,15 +129,6 @@ int isaMarkovGraph(adj_list *g) {
     }
     return 0;
 }
-#include "stack.h"
-
-t_stack create_stack(void) {
-    t_stack s;
-    s.data = NULL;
-    s.size = 0;
-    s.capacity = 0;
-    return s;
-}
 void free_adj_list(adj_list *g) {
     for (int i = 0; i < g->size; i++) {
         cell *cur = g->lists[i].head;

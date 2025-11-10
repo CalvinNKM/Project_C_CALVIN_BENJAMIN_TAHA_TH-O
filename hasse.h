@@ -30,6 +30,14 @@ typedef struct {
 
 void removeTransitiveLinks(t_link_array *p_link_array);
 
+t_stack create_stack(void) {
+    t_stack s;
+    s.data = NULL;
+    s.size = 0;
+    s.capacity = 0;
+    return s;
+}
+
 /**
  * @brief Creates a link array from the given partition and graph.
  *
@@ -37,5 +45,6 @@ void removeTransitiveLinks(t_link_array *p_link_array);
  * @param graph The adjacency list representation of the graph.
  * @return The created link array.
  */
+
 
 #endif

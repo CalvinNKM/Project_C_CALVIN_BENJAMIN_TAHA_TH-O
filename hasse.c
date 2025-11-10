@@ -47,3 +47,10 @@ void removeTransitiveLinks(t_link_array *p_link_array)
         }
     }
 }
+t_stack create_stack(void) {
+    t_stack s;
+    s.data = NULL;
+    s.size = 0;
+    s.capacity = 0;
+    return s;
+}

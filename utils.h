@@ -34,16 +34,3 @@ void exportMermaid(const adj_list *g, const char *filename);
 void free_adj_list(adj_list *g);
 
 #endif
-
-#ifndef STACK_H
-#define STACK_H
-
-typedef struct {
-    int *data;
-    int size;
-    int capacity;
-} t_stack;
-
-t_stack create_stack(void);
-
-#endif

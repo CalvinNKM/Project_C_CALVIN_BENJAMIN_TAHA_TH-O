@@ -74,3 +74,18 @@ t_stack create_stack(void) {
     s.capacity = 0;
     return s;
 }
+void push_stack(t_stack *s, int value) {
+    if (s->size == s->capacity) {
+        int newcap = (s->capacity == 0 ? 8 : s->capacity * 2);
+        int *tmp = realloc(s->data, newcap * sizeof(int));
+        if (!tmp) exit(1);
+        s->data = tmp;
+        s->capacity = newcap;
+    }
+    s->data[s->size++] = value;
+}
+
+int pop_stack(t_stack *s) {
+    s->size--;
+    return s->data[s->size];
+}

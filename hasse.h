@@ -40,7 +40,8 @@ t_tarjan_vertex *create_tarjan(int identifier, int prob);
 t_tarjan_vertex* createArrayTarjan(adj_list g);
 
 t_stack create_stack(void);
-
+void push_stack(t_stack *s, int value);
+int pop_stack(t_stack *s);
 
 /**
  * @brief Creates a link array from the given partition and graph.

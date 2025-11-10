@@ -43,7 +43,7 @@ t_stack create_stack(void);
 void push_stack(t_stack *s, int value);
 int pop_stack(t_stack *s);
 
-void parcours(t_tarjan_vertex* v, int * number, t_stack p, adj_list g, t_tarjan_vertex arr[]);
+void parcours(t_tarjan_vertex* v, int * number, t_stack * p, adj_list g, t_tarjan_vertex arr[]);
 
 /**
  * @brief Creates a link array from the given partition and graph.

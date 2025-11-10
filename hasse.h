@@ -20,7 +20,7 @@ typedef struct {
 
 typedef struct {
     char* name;
-    t_tarjan_cell list;
+    t_tarjan_list list;
 } t_class;
 
 typedef struct {
@@ -36,12 +36,14 @@ typedef struct {
     int capacity;
 } t_stack;
 
-t_tarjan_vertex *create_tarjan(int identifier, int prob);
+t_tarjan_vertex *create_tarjan(int identifier);
 t_tarjan_vertex* createArrayTarjan(adj_list g);
 
 t_stack create_stack(void);
 void push_stack(t_stack *s, int value);
 int pop_stack(t_stack *s);
+
+void parcours(t_tarjan_vertex* v, int * number, t_stack p, adj_list g, t_tarjan_vertex arr[]);
 
 /**
  * @brief Creates a link array from the given partition and graph.

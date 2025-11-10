@@ -89,3 +89,39 @@ int pop_stack(t_stack *s) {
     s->size--;
     return s->data[s->size];
 }
+
+void parcours(t_tarjan_vertex* v, int * number, t_stack p, adj_list g, t_tarjan_vertex arr[]) {
+    v->number = *number;
+    v->access_number = *number;
+    number ++;
+    push_stack(&p, v);
+    v->processing = 1;
+
+    list successors = g.lists[v->identifier];
+    cell * cur = successors.head;
+    while (cur!=NULL) {
+        t_tarjan_vertex w = arr[cur->to];
+        if (w.number == -1) {
+            parcours(&w, number, p, g, arr);
+            if (v->access_number > w.access_number) v->access_number = w.access_number;
+        }
+        else if (w.processing) {
+            if (v->access_number > w.number) v->access_number = w.number;
+        }
+        cur = cur->next;
+    }
+    if (v->access_number == v->number) {
+        t_class c;
+        c.name = "C";
+        c.list.size = 0;
+        c.list.head;
+        t_tarjan_vertex w;
+        do {
+            w = pop_stack(&p);
+            w.processing = 0;
+            //add w to C
+        } while (w.identifier != v->identifier);
+        //add c to partition
+
+    }
+}

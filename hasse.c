@@ -50,10 +50,7 @@ void removeTransitiveLinks(t_link_array *p_link_array)
 
 t_tarjan_vertex create_tarjan(int identifier)
 {
-    t_tarjan_vertex t = (t_tarjan_vertex)malloc(sizeof(t_tarjan_vertex));
-    if (!t) {
-        return NULL;
-    }
+    t_tarjan_vertex t;
     t.identifier = identifier;
     t.number = -1;
     t.access_number = -1;

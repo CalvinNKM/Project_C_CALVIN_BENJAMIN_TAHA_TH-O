@@ -76,6 +76,7 @@ t_stack create_stack(void) {
     s.capacity = 0;
     return s;
 }
+
 void push_stack(t_stack *s, int value) {
     if (s->size == s->capacity) {
         int newcap = (s->capacity == 0 ? 8 : s->capacity * 2);

@@ -48,23 +48,25 @@ void removeTransitiveLinks(t_link_array *p_link_array)
     }
 }
 
-t_tarjan_vertex *create_tarjan(int identifier, int prob)
+t_tarjan_vertex create_tarjan(int identifier)
 {
-    t_tarjan_vertex *t = (t_tarjan_vertex*)malloc(sizeof(t_tarjan_vertex));
+    t_tarjan_vertex t = (t_tarjan_vertex)malloc(sizeof(t_tarjan_vertex));
     if (!t) {
         return NULL;
     }
-    t->identifier = identifier;
-    t->number = -1;
-    t->access_number = -1;
-    t->processing = 0;
+    t.identifier = identifier;
+    t.number = -1;
+    t.access_number = -1;
+    t.processing = 0;
     return t;
 }
 
 t_tarjan_vertex* createArrayTarjan(adj_list g) {
-    t_tarjan_vertex *t = (t_tarjan_vertex*)malloc(sizeof(t_tarjan_vertex));
-
-    return ;
+    t_tarjan_vertex t[g.size];
+    for (int i = 0; i < g.size; i++) {
+        t[i] = create_tarjan(i);
+    }
+    return t;
 }
 
 t_stack create_stack(void) {

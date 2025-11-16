@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "utils.h"
+#include "hasse.h"
 
 
 #include <stdio.h>
@@ -25,6 +26,11 @@ int main(void)
     printf("\n--- Generation of the file Mermaid ---\n");
     exportMermaid(&g, "mermaid_output.txt");
 
+    t_partition p = tarjan(g);
+    for (int i=0; i<p.size; i++) {
+        printf("\n%s:", p.lists[i].name);
+        for (int j=0; j<p.lists[i].size; j++) printf("%d-:", p.lists[i].list[j]->identifier);
+    }
 
     free_adj_list(&g);
 

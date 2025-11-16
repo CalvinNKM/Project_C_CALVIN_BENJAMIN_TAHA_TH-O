@@ -24,7 +24,7 @@ adj_list create_adj_list(int n);
 void addCellToList(list *L, int dest, float prob);
 list createList(void);
 
-void print_list(const list *l);
+void print_list(list l);
 void print_adj_list(const adj_list *al);
 
 adj_list readGraph(const char *filename);

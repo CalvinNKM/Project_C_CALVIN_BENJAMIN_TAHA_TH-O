@@ -2,7 +2,7 @@
 #include "hasse.h"
 
 
-void removeTransitiveLinks(t_link_array *p_link_array)
+/*void removeTransitiveLinks(t_link_array *p_link_array)
 {
     int i = 0;
     while (i < p_link_array->log_size)
@@ -46,7 +46,7 @@ void removeTransitiveLinks(t_link_array *p_link_array)
             i++;
         }
     }
-}
+}*/
 
 t_tarjan_vertex create_tarjan(int identifier)
 {
@@ -58,43 +58,40 @@ t_tarjan_vertex create_tarjan(int identifier)
     return t;
 }
 
-t_tarjan_vertex* createArrayTarjan(adj_list g) {
-    t_tarjan_vertex t[g.size];
+t_tarjan_vertex* createTarjanArray(adj_list g) {
+    t_tarjan_vertex* t = (t_tarjan_vertex*) malloc(g.size * sizeof(t_tarjan_vertex));
     for (int i = 0; i < g.size; i++) {
         t[i] = create_tarjan(i);
     }
     return t;
 }
 
-t_stack create_stack(void) {
+t_stack create_stack() {
     t_stack s;
-    s.data = NULL;
     s.size = 0;
-    s.capacity = 0;
     return s;
 }
 
-void push_stack(t_stack *s, int value) {
-    if (s->size == s->capacity) {
-        int newcap = (s->capacity == 0 ? 8 : s->capacity * 2);
-        int *tmp = realloc(s->data, newcap * sizeof(int));
-        if (!tmp) exit(1);
-        s->data = tmp;
-        s->capacity = newcap;
+void push_stack(t_stack *s, t_tarjan_vertex * val) {
+    if (s->size >= NBMAX) {
+        printf("max. stack size reached");
+    } else {
+        s->data[s->size] = val;
+        s->size++;
     }
-    s->data[s->size++] = value;
 }
 
-int pop_stack(t_stack *s) {
+t_tarjan_vertex * pop_stack(t_stack *s) {
+    if (s->size == 0) return NULL;
     s->size--;
     return s->data[s->size];
 }
 
-void parcours(t_tarjan_vertex* v, int * number, t_stack * p, adj_list g, t_tarjan_vertex arr[]) {
+void parcours(t_tarjan_vertex* v, int * number, t_stack * s, adj_list g, t_tarjan_vertex * arr, t_partition * p) {
     v->number = *number;
     v->access_number = *number;
     (*number) ++;
-    push_stack(p, v);
+    push_stack(s, v);
     v->processing = 1;
 
     list successors = g.lists[v->identifier];
@@ -102,7 +99,7 @@ void parcours(t_tarjan_vertex* v, int * number, t_stack * p, adj_list g, t_tarja
     while (cur!=NULL) {
         t_tarjan_vertex* w = &arr[cur->to];
         if (w->number == -1) {
-            parcours(w, number, p, g, arr);
+            parcours(w, number, s, g, arr, p);
             if (v->access_number > w->access_number) v->access_number = w->access_number;
         }
         else if (w->processing) {
@@ -112,16 +109,34 @@ void parcours(t_tarjan_vertex* v, int * number, t_stack * p, adj_list g, t_tarja
     }
     if (v->access_number == v->number) {
         t_class c;
-        c.name = "C";
-        c.list.size = 0;
-        c.list.head;
+        c.name[0] = 'C';
+        c.name[1] = '0' + (p->size + 1) ;
+        c.name[2] = '\0';
+        c.size = 0;
+        c.list = (t_tarjan_vertex**) malloc(g.size * sizeof(t_tarjan_vertex*));
         t_tarjan_vertex* w;
         do {
-            w = pop_stack(p);
+            w = pop_stack(s);
             w->processing = 0;
-            //add w to C
-        } while (w->identifier != v->identifier);
-        //add c to partition
-
+            c.list[c.size ++] = w;
+        } while (w != v);
+        p->lists[p->size++] = c;
     }
+}
+
+t_partition tarjan(adj_list g) {
+    int num = 0;
+    t_stack s = create_stack();
+    t_partition p;
+    p.size = 0;
+    p.lists = (t_class *) malloc(NBMAX * sizeof(t_class));
+    t_tarjan_vertex * allVertex = createTarjanArray(g);
+
+    parcours(&allVertex[0], &num, &s, g, allVertex, &p);
+
+    for (int i=1; i<g.size; i++) {
+        if (allVertex[i].number == -1) parcours(&allVertex[i], &num, &s, g, allVertex, &p);
+    }
+
+    return p;
 }

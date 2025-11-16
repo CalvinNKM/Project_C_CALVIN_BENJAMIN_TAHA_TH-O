@@ -1,6 +1,9 @@
 #ifndef __HASSE_H__
 #define __HASSE_H__
 #include "utils.h"
+
+#define NBMAX 50
+
 typedef struct {
     int identifier;
     int number;
@@ -19,31 +22,33 @@ typedef struct {
 } t_tarjan_list;
 
 typedef struct {
-    char* name;
-    t_tarjan_list list;
+    char name[3];
+    int size;
+    t_tarjan_vertex ** list;
 } t_class;
 
 typedef struct {
     int size;
-    t_class *lists;
+    t_class * lists;
 }t_partition;
 
-void removeTransitiveLinks(t_link_array *p_link_array);
+//void removeTransitiveLinks(t_link_array *p_link_array);
 
 typedef struct {
-    int *data;
+    t_tarjan_vertex * data[NBMAX];
     int size;
-    int capacity;
 } t_stack;
 
-t_tarjan_vertex *create_tarjan(int identifier);
-t_tarjan_vertex* createArrayTarjan(adj_list g);
+t_tarjan_vertex create_tarjan(int identifier);
+t_tarjan_vertex* createTarjanArray(adj_list g);
 
-t_stack create_stack(void);
-void push_stack(t_stack *s, int value);
-int pop_stack(t_stack *s);
 
-void parcours(t_tarjan_vertex* v, int * number, t_stack * p, adj_list g, t_tarjan_vertex arr[]);
+t_stack create_stack();
+void push_stack(t_stack *s, t_tarjan_vertex * val);
+t_tarjan_vertex * pop_stack(t_stack *s);
+
+void parcours(t_tarjan_vertex* v, int * number, t_stack * s, adj_list g, t_tarjan_vertex * arr, t_partition * p);
+t_partition tarjan(adj_list g);
 
 /**
  * @brief Creates a link array from the given partition and graph.

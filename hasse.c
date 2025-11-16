@@ -97,7 +97,7 @@ void parcours(t_tarjan_vertex* v, int * number, t_stack * s, adj_list g, t_tarja
     list successors = g.lists[v->identifier];
     cell * cur = successors.head;
     while (cur!=NULL) {
-        t_tarjan_vertex* w = &arr[cur->to];
+        t_tarjan_vertex* w = &arr[cur->to-1];
         if (w->number == -1) {
             parcours(w, number, s, g, arr, p);
             if (v->access_number > w->access_number) v->access_number = w->access_number;

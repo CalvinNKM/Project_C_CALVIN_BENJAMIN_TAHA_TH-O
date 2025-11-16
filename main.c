@@ -29,7 +29,7 @@ int main(void)
     t_partition p = tarjan(g);
     for (int i=0; i<p.size; i++) {
         printf("\n%s:", p.lists[i].name);
-        for (int j=0; j<p.lists[i].size; j++) printf("%d-:", p.lists[i].list[j]->identifier);
+        for (int j=0; j<p.lists[i].size; j++) printf("%d-:", p.lists[i].list[j]->identifier+1);
     }
 
     free_adj_list(&g);

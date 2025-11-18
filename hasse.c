@@ -1,5 +1,5 @@
-#include <malloc.h>
 #include "hasse.h"
+
 
 
 /*void removeTransitiveLinks(t_link_array *p_link_array)
@@ -139,4 +139,99 @@ t_partition tarjan(adj_list g) {
     }
 
     return p;
+}
+
+
+int* buildVertexToClassTable(t_partition part, int nb_vertices)
+{
+    int *table = (int*) malloc(nb_vertices * sizeof(int));
+
+    for (int c = 0; c < part.size; c++) {
+        t_class cls = part.lists[c];
+        for (int i = 0; i < cls.size; i++) {
+            int v = cls.list[i]->identifier;
+            table[v] = c;
+        }
+    }
+
+    return table;
+}
+
+int linkExists(t_link_array *arr, int from, int to)
+{
+    for (int i = 0; i < arr->log_size; i++) {
+        if (arr->links[i].from == from && arr->links[i].to == to) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+t_link_array createLinkArray(t_partition part, adj_list graph)
+{
+    t_link_array link_array;
+    link_array.log_size = 0;
+
+    int *vertex_to_class = buildVertexToClassTable(part, graph.size);
+
+    for (int i = 0; i < graph.size; i++) {
+        int Ci = vertex_to_class[i];
+        cell *cur = graph.lists[i].head;
+
+        while (cur != NULL) {
+            int j = cur->to - 1;
+            int Cj = vertex_to_class[j];
+            if (Ci != Cj) {
+                if (!linkExists(&link_array, Ci, Cj)) {
+                    if (link_array.log_size >= NBMAX) {
+                        printf("Number max of links in createLinkArray\n");
+                    } else {
+                        link_array.links[link_array.log_size].from = Ci;
+                        link_array.links[link_array.log_size].to   = Cj;
+                        link_array.log_size++;
+                    }
+                }
+            }
+
+            cur = cur->next;
+        }
+    }
+
+    free(vertex_to_class);
+    return link_array;
+}
+
+void computeClassProperties(t_partition part, t_link_array links)
+{
+    printf("\n\n=== STEP 3 : Properties of the classes ===\n");
+    for (int c = 0; c < part.size; c++) {
+
+        int hasOutgoing = 0;
+
+        for (int i = 0; i < links.log_size; i++) {
+            if (links.links[i].from == c) {
+                hasOutgoing = 1;
+                break;
+            }
+        }
+
+        int isTransient = hasOutgoing;
+        int isPersistent = !hasOutgoing;
+        int isAbsorbing = (isPersistent && part.lists[c].size == 1);
+
+        printf("\n%s :\n", part.lists[c].name);
+
+        if (isTransient)
+            printf("Transient\n");
+        else
+            printf("Persistent\n");
+
+        if (isAbsorbing)
+            printf("Absorbing state\n");
+    }
+
+    if (part.size == 1)
+        printf("\nThe graph is irreducible \n");
+    else
+        printf("\nThe graph is NOT ireducible \n");
 }

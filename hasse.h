@@ -1,6 +1,8 @@
 #ifndef __HASSE_H__
 #define __HASSE_H__
 #include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define NBMAX 50
 
@@ -14,7 +16,7 @@ typedef struct {
 typedef struct tarjan_cell {
     t_tarjan_vertex val;
     struct tarjan_cell* next;
-}t_tarjan_cell;
+} t_tarjan_cell;
 
 typedef struct {
     int size;
@@ -30,9 +32,18 @@ typedef struct {
 typedef struct {
     int size;
     t_class * lists;
-}t_partition;
+} t_partition;
 
-//void removeTransitiveLinks(t_link_array *p_link_array);
+typedef struct {
+    int from;
+    int to;
+} t_link;
+
+typedef struct {
+    int log_size;
+    t_link links[NBMAX];
+} t_link_array;
+
 
 typedef struct {
     t_tarjan_vertex * data[NBMAX];
@@ -41,7 +52,6 @@ typedef struct {
 
 t_tarjan_vertex create_tarjan(int identifier);
 t_tarjan_vertex* createTarjanArray(adj_list g);
-
 
 t_stack create_stack();
 void push_stack(t_stack *s, t_tarjan_vertex * val);
@@ -57,6 +67,6 @@ t_partition tarjan(adj_list g);
  * @param graph The adjacency list representation of the graph.
  * @return The created link array.
  */
-
-
+t_link_array createLinkArray(t_partition part, adj_list graph);
+void computeClassProperties(t_partition part, t_link_array links);
 #endif

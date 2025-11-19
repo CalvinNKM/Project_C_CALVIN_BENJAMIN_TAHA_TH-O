@@ -201,6 +201,33 @@ t_link_array createLinkArray(t_partition part, adj_list graph)
     return link_array;
 }
 
+void exportHasse(t_partition p, t_link_array links, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (!file) {
+        perror("Could not open file for writing");
+        return;
+    }
+
+    fprintf(file, "---\n");
+    fprintf(file, "config:\n   layout: elk\n   theme: neo\n   look: neo\n---\n\n");
+    fprintf(file, "flowchart LR\n");
+
+    for (int i = 0; i <p.size; i++) {
+        fprintf(file, "%s((%d))\n", p.lists[i].name, i + 1);
+    }
+    fprintf(file, "\n");
+
+    for (int i = 0; i < links.log_size; i++) {
+        int from = links.links[i].from;
+        int to = links.links[i].to;
+        fprintf(file, "%s -->%s\n", p.lists[from].name, p.lists[to].name);
+        printf("%s -> %s\n", p.lists[from].name, p.lists[to].name);
+    }
+
+    fclose(file);
+    printf("Mermaid Hasse diagram '%s' generated successfully.\n", filename);
+}
+
 void computeClassProperties(t_partition part, t_link_array links)
 {
     printf("\n\n=== STEP 3 : Properties of the classes ===\n");

@@ -27,22 +27,19 @@ int main(void)
     exportMermaid(&g, "mermaid_output.txt");
 
     t_partition p = tarjan(g);
+
     for (int i=0; i<p.size; i++) {
-        printf("\n%s:", p.lists[i].name);
+        printf("\n%s:{", p.lists[i].name);
         for (int j=0; j<p.lists[i].size; j++)
-            printf("%d-:", p.lists[i].list[j]->identifier+1);
+            printf("%d ", p.lists[i].list[j]->identifier+1);
+        printf("}");
     }
 
     printf("\n\n Links betweens classes \n");
 
     t_link_array links = createLinkArray(p, g);
 
-    for (int i = 0; i < links.log_size; i++) {
-        int from = links.links[i].from;
-        int to   = links.links[i].to;
-
-        printf("%s -> %s\n", p.lists[from].name, p.lists[to].name);
-    }
+    exportHasse(p, links, "hasse_export.txt");
 
     computeClassProperties(p, links);
     free_adj_list(&g);

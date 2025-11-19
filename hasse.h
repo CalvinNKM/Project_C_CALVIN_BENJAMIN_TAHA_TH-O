@@ -68,5 +68,6 @@ t_partition tarjan(adj_list g);
  * @return The created link array.
  */
 t_link_array createLinkArray(t_partition part, adj_list graph);
+void exportHasse(t_partition p, t_link_array links, const char *filename);
 void computeClassProperties(t_partition part, t_link_array links);
 #endif

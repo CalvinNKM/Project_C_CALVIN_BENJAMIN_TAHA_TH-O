@@ -213,7 +213,7 @@ void exportHasse(t_partition p, t_link_array links, const char *filename) {
     fprintf(file, "flowchart LR\n");
 
     for (int i = 0; i <p.size; i++) {
-        fprintf(file, "%s((%d))\n", p.lists[i].name, i + 1);
+        fprintf(file, "%s[%s]\n", p.lists[i].name, p.lists[i].name);
     }
     fprintf(file, "\n");
 
@@ -234,7 +234,6 @@ void computeClassProperties(t_partition part, t_link_array links)
     for (int c = 0; c < part.size; c++) {
 
         int hasOutgoing = 0;
-
         for (int i = 0; i < links.log_size; i++) {
             if (links.links[i].from == c) {
                 hasOutgoing = 1;

@@ -29,7 +29,7 @@ int main(void)
     t_partition p = tarjan(g);
 
     for (int i=0; i<p.size; i++) {
-        printf("\n%s:{", p.lists[i].name);
+        printf("\n%s: { ", p.lists[i].name);
         for (int j=0; j<p.lists[i].size; j++)
             printf("%d ", p.lists[i].list[j]->identifier+1);
         printf("}");
@@ -41,6 +41,7 @@ int main(void)
 
     exportHasse(p, links, "hasse_export.txt");
 
+    printf("\n\n=== STEP 3 : Properties of the classes ===\n");
     computeClassProperties(p, links);
     free_adj_list(&g);
 

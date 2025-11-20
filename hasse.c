@@ -230,7 +230,6 @@ void exportHasse(t_partition p, t_link_array links, const char *filename) {
 
 void computeClassProperties(t_partition part, t_link_array links)
 {
-    printf("\n\n=== STEP 3 : Properties of the classes ===\n");
     for (int c = 0; c < part.size; c++) {
 
         int hasOutgoing = 0;
@@ -259,5 +258,5 @@ void computeClassProperties(t_partition part, t_link_array links)
     if (part.size == 1)
         printf("\nThe graph is irreducible \n");
     else
-        printf("\nThe graph is NOT ireducible \n");
+        printf("\nThe graph is NOT irreducible \n");
 }

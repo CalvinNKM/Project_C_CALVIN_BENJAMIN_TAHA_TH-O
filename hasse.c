@@ -1,7 +1,5 @@
 #include "hasse.h"
 
-
-
 /*void removeTransitiveLinks(t_link_array *p_link_array)
 {
     int i = 0;
@@ -213,7 +211,10 @@ void exportHasse(t_partition p, t_link_array links, const char *filename) {
     fprintf(file, "flowchart LR\n");
 
     for (int i = 0; i <p.size; i++) {
-        fprintf(file, "%s[%s]\n", p.lists[i].name, p.lists[i].name);
+        fprintf(file, "%s[{", p.lists[i].name);
+        for (int j=0; j<p.lists[i].size; j++)
+            fprintf(file, "%d ", p.lists[i].list[j]->identifier+1);
+        fprintf(file, "}]\n");
     }
     fprintf(file, "\n");
 
@@ -244,7 +245,10 @@ void computeClassProperties(t_partition part, t_link_array links)
         int isPersistent = !hasOutgoing;
         int isAbsorbing = (isPersistent && part.lists[c].size == 1);
 
-        printf("\n%s :\n", part.lists[c].name);
+        printf("%s { ", part.lists[c].name);
+        for (int j=0; j<part.lists[c].size; j++)
+            printf("%d ", part.lists[c].list[j]->identifier+1);
+        printf("}: ");
 
         if (isTransient)
             printf("Transient\n");

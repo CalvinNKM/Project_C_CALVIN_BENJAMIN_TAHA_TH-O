@@ -211,10 +211,10 @@ void exportHasse(t_partition p, t_link_array links, const char *filename) {
     fprintf(file, "flowchart LR\n");
 
     for (int i = 0; i <p.size; i++) {
-        fprintf(file, "%s[{", p.lists[i].name);
+        fprintf(file, "%s[\"%s {", p.lists[i].name, p.lists[i].name);
         for (int j=0; j<p.lists[i].size; j++)
-            fprintf(file, "%d ", p.lists[i].list[j]->identifier+1);
-        fprintf(file, "}]\n");
+            fprintf(file, " %d", p.lists[i].list[j]->identifier+1);
+        fprintf(file, "}\"]\n");
     }
     fprintf(file, "\n");
 

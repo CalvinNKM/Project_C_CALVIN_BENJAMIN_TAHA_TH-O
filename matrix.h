@@ -7,6 +7,7 @@
 #include "hasse.h"
 #include <math.h>
 
+/* STEP 1 */
 float ** initialize_matrix(int size);
 float ** create_matrix(adj_list l);
 void print_matrix(float ** m, int size);
@@ -15,12 +16,10 @@ float ** copy_matrix(float ** matrix, int size);
 float ** multiply_matrix(float ** matrix1, float ** matrix2, int size);
 float difference_matrix(float ** matrix1, float ** matrix2, int size);
 
+/* STEP 2 */
 float ** subMatrix(float ** matrix, t_partition part, int compo_index);
 
-int gcd(int *vals, int nbvals);
-void copy_square_matrix(float **dest, float **src, int n);
-void multiply_square_matrix(float **A, float **B, float **result, int n);
-int getPeriod(float **sub_matrix, int n);
+/* STEP 3 */
 int gcd(int *vals, int nbvals);
 int getPeriod(float **sub_matrix, int n);
 

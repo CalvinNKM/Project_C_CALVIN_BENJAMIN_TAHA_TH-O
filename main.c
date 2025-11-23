@@ -95,14 +95,25 @@ int main(void)
         printf("}");
     }
 
-    printf("\n\nLet's concentrate on node C1:\n");
+    printf("\n\nLet's concentrate on class C1:\n");
     float ** matrix3 = create_matrix(g3);
     float ** submatrix = subMatrix(matrix3, p3, 0);
     print_matrix(submatrix, p3.lists[0].size);
 
-    free_adj_list(&g3);
     free_matrix(matrix3,g3.size);
     free_matrix(submatrix,g2.size);
+    free_adj_list(&g3);
+
+    const char *inputFile4 = "../data/exemple_valid_step3.txt";
+    adj_list g4 = readGraph(inputFile4);
+    t_partition p4 = tarjan(g4);
+    float ** matrix4 = create_matrix(g4);
+    float ** submatrix2 = subMatrix(matrix4, p4, 0);
+    printf("\nLet's calculate the period of class C1: %d\n",getPeriod(submatrix2,p4.lists[0].size));
+
+    free_matrix(matrix4,g4.size);
+    free_matrix(submatrix2,g4.size);
+    free_adj_list(&g4);
 
     return 0;
 

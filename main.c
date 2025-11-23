@@ -61,7 +61,6 @@ int main(void)
     }
     print_matrix(matrix2, g2.size);
 
-
     free_matrix(matrix,g2.size);
 
     return 0;

@@ -7,7 +7,6 @@
 #include "hasse.h"
 #include <math.h>
 
-
 float ** initialize_matrix(int size);
 float ** create_matrix(adj_list l);
 void print_matrix(float ** m, int size);

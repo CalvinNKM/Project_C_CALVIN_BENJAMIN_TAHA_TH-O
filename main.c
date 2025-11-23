@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "utils.h"
 #include "hasse.h"
+#include "matrix.h"
 
 int main(void)
 {
@@ -40,8 +41,12 @@ int main(void)
 
     printf("\n\n--- Properties of the classes ---\n");
     computeClassProperties(p, links);
-    free_adj_list(&g);
 
+    float ** matrix = create_matrix(g);
+    print_matrix(matrix, g.size);
+    free_matrix(matrix,g.size);
+
+    free_adj_list(&g);
     return 0;
 
 }

@@ -75,7 +75,7 @@ int main(void)
     if (number < 100) {
         printf("\nThis is the M^n where the difference between the precedent is smaller than 0.01: %d .\n"
                "The difference is of %f\n",number,difference_matrix(matrix_temp, matrix2, g2.size));
-    }else printf("\nAfter 100 iterations, the difference is still not of 0.01, so it will probably never be.\n");
+    }else printf("\nAfter 100 iterations, the difference is still not of 0.01 (difference of %f), so it will probably never be.\n",difference_matrix(matrix_temp, matrix2, g2.size));
 
     free_matrix(matrix,g2.size);
 

@@ -74,15 +74,15 @@ int main(void)
         number++;
     } while (difference_matrix(matrix_temp, matrix2, g2.size) >= 0.01 && number < 100);
     if (number < 100) {
-        printf("\nThis is the M^n where the difference between the precedent is smaller than 0.01: %d .\n"
-               "The difference is of %f\n",number,difference_matrix(matrix_temp, matrix2, g2.size));
+        printf("\nThis is the M^n where the difference between the precedent is smaller than 0.01: %d.\n"
+               "The difference is of %f.\n",number,difference_matrix(matrix_temp, matrix2, g2.size));
     }else printf("\nAfter 100 iterations, the difference is still not of 0.01 (difference of %f), so it will probably never be.\n",difference_matrix(matrix_temp, matrix2, g2.size));
 
     free_matrix(matrix,g2.size);
     free_matrix(matrix2,g2.size);
     free_adj_list(&g2);
 
-
+    printf("\n--- Find the submatrix ---");
     const char *inputFile3 = "../data/exemple_hasse1.txt";
     adj_list g3 = readGraph(inputFile3);
 
@@ -95,7 +95,7 @@ int main(void)
         printf("}");
     }
 
-    printf("\n\nLet's concentrate on class C1:\n");
+    printf("\nLet's concentrate on class C1:\n");
     float ** matrix3 = create_matrix(g3);
     float ** submatrix = subMatrix(matrix3, p3, 0);
     print_matrix(submatrix, p3.lists[0].size);
@@ -104,10 +104,11 @@ int main(void)
     free_matrix(submatrix,g2.size);
     free_adj_list(&g3);
 
+    printf("\n--- Find the period of a class ---\n");
     const char *inputFile4 = "../data/exemple_period.txt";
     adj_list g4 = readGraph(inputFile4);
     t_partition p4 = tarjan(g4);
-    printf("\nThe graph contains the following classes:");
+    printf("The graph contains the following classes:");
     for (int i=0; i<p4.size; i++) {
         printf("\n%s: { ", p4.lists[i].name);
         for (int j=0; j<p4.lists[i].size; j++)

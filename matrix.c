@@ -26,7 +26,6 @@ float ** create_matrix(adj_list l) {
 }
 
 void print_matrix(float ** m, int size) {
-    printf("--- Matrix (%d x %d) ---\n", size, size); // Header for clarity
     for (int i = 0; i < size; i++) {
         printf("|"); // Start row indicator
         for (int j = 0; j < size; j++) {
@@ -34,7 +33,9 @@ void print_matrix(float ** m, int size) {
         }
         printf("|\n"); // End row indicator and new line
     }
-    printf("------------------------\n");
+    for (int i = 0; i < size; i++) {
+        printf("-------");
+    }printf("\n");
 }
 
 void free_matrix(float ** matrix, int size) {

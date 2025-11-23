@@ -25,7 +25,7 @@ int main(void)
     printf("\n=== PART 2 ===\n");
 
     t_partition p = tarjan(g);
-    printf("The graph contains the following classes:\n");
+    printf("The graph contains the following     classes:\n");
     for (int i=0; i<p.size; i++) {
         printf("\n%s: { ", p.lists[i].name);
         for (int j=0; j<p.lists[i].size; j++)
@@ -41,12 +41,29 @@ int main(void)
 
     printf("\n\n--- Properties of the classes ---\n");
     computeClassProperties(p, links);
-
-    float ** matrix = create_matrix(g);
-    print_matrix(matrix, g.size);
-    free_matrix(matrix,g.size);
-
     free_adj_list(&g);
+
+    const char *inputFile2 = "../data/exemple_meteo.txt";
+    adj_list g2 = readGraph(inputFile2);
+    print_adj_list(&g2);
+    float ** matrix = create_matrix(g2);
+    print_matrix(matrix, g2.size);
+
+    float ** matrix2 = copy_matrix(matrix, g2.size);
+    print_matrix(matrix2, g2.size);
+    for (int i=0; i<2; i++) {
+        matrix2 = multiply_matrix(matrix2,matrix,g2.size);
+    }
+    print_matrix(matrix2, g2.size);
+
+    for (int i=0; i<4; i++) {
+        matrix2 = multiply_matrix(matrix2,matrix,g2.size);
+    }
+    print_matrix(matrix2, g2.size);
+
+
+    free_matrix(matrix,g2.size);
+
     return 0;
 
 }

@@ -85,8 +85,6 @@ float ** subMatrix(float ** matrix, t_partition part, int compo_index) {
 }
 
 
-
-// Compute gcd of an array of integers
 int gcd(int *vals, int nbvals) {
     // If there are no values, return 0
     if (nbvals == 0) return 0;
@@ -111,7 +109,6 @@ int gcd(int *vals, int nbvals) {
     return result;
 }
 
-// Compute the period of a class from its submatrix
 int getPeriod(float **sub_matrix, int n) {
     // periods[] stores all c values where the diagonal is > 0
     int *periods = (int *)malloc(n * sizeof(int));

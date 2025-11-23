@@ -6,7 +6,7 @@
 
 #define NBMAX 50
 
-//vertex structure for the tarjan algo
+// Vertex structure for the tarjan algo
 typedef struct {
     int identifier;
     int number;
@@ -14,52 +14,52 @@ typedef struct {
     int processing;
 } t_tarjan_vertex;
 
-//class (name and a set of lists of tarjan vertices)
+// Class (name and a set of lists of tarjan vertices)
 typedef struct {
     char name[3];
     int size;
     t_tarjan_vertex ** list;
 } t_class;
 
-//partition (set of classes)
+// Partition (set of classes)
 typedef struct {
     int size;
     t_class * lists;
 } t_partition;
 
-//link from one class to another
+// Link from one class to another
 typedef struct {
     int from;
     int to;
 } t_link;
 
-//array containing all the links between all the classes
+// Array containing all the links between all the classes
 typedef struct {
     int log_size;
     t_link links[NBMAX];
 } t_link_array;
 
-//stack used by the Tarjan algo
+// Stack used by the Tarjan algo
 typedef struct {
     t_tarjan_vertex * data[NBMAX];
     int size;
 } t_stack;
 
-//create an empty tarjan vertex
+// Create an empty tarjan vertex
 t_tarjan_vertex create_tarjan(int identifier);
-//convert all vertices from an adjacency list into tarjan vertices
+// Convert all vertices from an adjacency list into tarjan vertices
 t_tarjan_vertex* createTarjanArray(adj_list g);
 
-//create an empty stack
+// Create an empty stack
 t_stack create_stack();
-//add a tarjan vertex on the top of the stack
+// Add a tarjan vertex on the top of the stack
 void push_stack(t_stack *s, t_tarjan_vertex * val);
-//delete the tarjan vertex on the top of the stack and return its value (pointer)
+// Delete the tarjan vertex on the top of the stack and return its value (pointer)
 t_tarjan_vertex * pop_stack(t_stack *s);
 
-//main function of the Tarjan algo (see Wikipedia)
+// Main function of the Tarjan algo (see Wikipedia)
 void parcours(t_tarjan_vertex* v, int * number, t_stack * s, adj_list g, t_tarjan_vertex * arr, t_partition * p);
-//function executing the Tarjan algo
+// Function executing the Tarjan algo
 t_partition tarjan(adj_list g);
 
 /**
@@ -70,8 +70,8 @@ t_partition tarjan(adj_list g);
  * @return The created link array.
  */
 t_link_array createLinkArray(t_partition part, adj_list graph);
-//create a mermaid file representing the Hasse diagram (links between classes)
+// Create a mermaid file representing the Hasse diagram (links between classes)
 void exportHasse(t_partition p, t_link_array links, const char *filename);
-//find the class properties (transient, persistent, absorbing)
+// Find the class properties (transient, persistent, absorbing)
 void computeClassProperties(t_partition part, t_link_array links);
 #endif

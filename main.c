@@ -104,9 +104,16 @@ int main(void)
     free_matrix(submatrix,g2.size);
     free_adj_list(&g3);
 
-    const char *inputFile4 = "../data/exemple_valid_step3.txt";
+    const char *inputFile4 = "../data/exemple_period.txt";
     adj_list g4 = readGraph(inputFile4);
     t_partition p4 = tarjan(g4);
+    printf("\nThe graph contains the following classes:");
+    for (int i=0; i<p4.size; i++) {
+        printf("\n%s: { ", p4.lists[i].name);
+        for (int j=0; j<p4.lists[i].size; j++)
+            printf("%d ", p4.lists[i].list[j]->identifier+1);
+        printf("}");
+    }
     float ** matrix4 = create_matrix(g4);
     float ** submatrix2 = subMatrix(matrix4, p4, 0);
     printf("\nLet's calculate the period of class C1: %d\n",getPeriod(submatrix2,p4.lists[0].size));

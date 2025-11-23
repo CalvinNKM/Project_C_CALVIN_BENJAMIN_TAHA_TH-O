@@ -14,6 +14,9 @@ void free_matrix(float ** matrix, int size);
 float ** copy_matrix(float ** matrix, int size);
 float ** multiply_matrix(float ** matrix1, float ** matrix2, int size);
 float difference_matrix(float ** matrix1, float ** matrix2, int size);
+
+float ** subMatrix(float ** matrix, t_partition part, int compo_index);
+
 int gcd(int *vals, int nbvals);
 void copy_square_matrix(float **dest, float **src, int n);
 void multiply_square_matrix(float **A, float **B, float **result, int n);

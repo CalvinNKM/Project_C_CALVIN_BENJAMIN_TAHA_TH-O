@@ -73,6 +73,18 @@ float difference_matrix(float ** matrix1, float ** matrix2, int size) {
         }
     } return result;
 }
+
+float ** subMatrix(float ** matrix, t_partition part, int compo_index) {
+    float ** submatrix = initialize_matrix(part.lists[compo_index].size);
+    for (int i=0; i<part.lists[compo_index].size; i++) {
+        for (int j=0; j<part.lists[compo_index].size; j++) {
+            submatrix[i][j] = matrix[part.lists[compo_index].list[i]->identifier][part.lists[compo_index].list[j]->identifier];
+        }
+    }return submatrix;
+}
+
+
+
 // Compute gcd of an array of integers
 int gcd(int *vals, int nbvals) {
     // If there are no values, return 0

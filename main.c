@@ -25,7 +25,7 @@ int main(void)
     printf("\n=== PART 2 ===\n");
 
     t_partition p = tarjan(g);
-    printf("The graph contains the following     classes:\n");
+    printf("The graph contains the following classes:\n");
     for (int i=0; i<p.size; i++) {
         printf("\n%s: { ", p.lists[i].name);
         for (int j=0; j<p.lists[i].size; j++)
@@ -42,6 +42,7 @@ int main(void)
     printf("\n\n--- Properties of the classes ---\n");
     computeClassProperties(p, links);
     free_adj_list(&g);
+
 
     printf("\n=== PART 3 ===\n");
     const char *inputFile2 = "../data/exemple_meteo.txt";
@@ -78,6 +79,30 @@ int main(void)
     }else printf("\nAfter 100 iterations, the difference is still not of 0.01 (difference of %f), so it will probably never be.\n",difference_matrix(matrix_temp, matrix2, g2.size));
 
     free_matrix(matrix,g2.size);
+    free_matrix(matrix2,g2.size);
+    free_adj_list(&g2);
+
+
+    const char *inputFile3 = "../data/exemple_hasse1.txt";
+    adj_list g3 = readGraph(inputFile3);
+
+    t_partition p3 = tarjan(g3);
+    printf("\nThe graph contains the following classes:");
+    for (int i=0; i<p3.size; i++) {
+        printf("\n%s: { ", p3.lists[i].name);
+        for (int j=0; j<p3.lists[i].size; j++)
+            printf("%d ", p3.lists[i].list[j]->identifier+1);
+        printf("}");
+    }
+
+    printf("\n\nLet's concentrate on node C1:\n");
+    float ** matrix3 = create_matrix(g3);
+    float ** submatrix = subMatrix(matrix3, p3, 0);
+    print_matrix(submatrix, p3.lists[0].size);
+
+    free_adj_list(&g3);
+    free_matrix(matrix3,g3.size);
+    free_matrix(submatrix,g2.size);
 
     return 0;
 

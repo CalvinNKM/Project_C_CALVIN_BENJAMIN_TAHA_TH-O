@@ -6,7 +6,7 @@
 
 #define NBMAX 50
 
-//vertex structure for the terjan algo
+//vertex structure for the tarjan algo
 typedef struct {
     int identifier;
     int number;
